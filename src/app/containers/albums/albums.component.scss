@@ -1,0 +1,29 @@
+.albums {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+
+  .albums-list {
+    width: 600px;
+  }
+
+  .album-row {
+    width: 100%;
+
+    .album-info {
+      .album-title {
+        margin-right: 20px;
+      }
+      .photos-info {
+        font-style: italic;
+        margin-right: 20px;
+      }
+    }
+    .view-photos {
+      a {
+        cursor: pointer;
+        text-decoration: none;
+      }
+    }
+  }
+}

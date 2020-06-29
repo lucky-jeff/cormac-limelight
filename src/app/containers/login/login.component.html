@@ -1,0 +1,34 @@
+<div class="login">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h2 class="mat-h2">Login</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="form-login" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-fields">
+          <mat-form-field appearance="standard">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" required />
+            <mat-error *ngIf="emailField.invalid">
+              <div *ngIf="emailField.errors.required">Email is required</div>
+              <div *ngIf="emailField.errors.email">Invalid email</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-actions">
+          <button mat-raised-button color="primary" [disabled]="loading">
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <mat-spinner class="btn-spinner" *ngIf="loading" diameter="15"></mat-spinner>
+              <span>Login</span>
+            </div>
+          </button>
+        </div>
+        <div class="form-response">
+          <mat-error *ngIf="error">{{error}}</mat-error>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

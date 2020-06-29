@@ -1,0 +1,29 @@
+<div class="top-bar" *ngIf="currentUser">
+  <mat-toolbar color="primary">
+    <div class="brand">
+      <a routerLink="/">Cormac - Limelight</a>
+    </div>
+    <div class="spacer"></div>
+    <div class="main-menu">
+      <a [routerLink]="postsLink">Posts</a>
+      <a [routerLink]="albumsLink">Albums</a>
+      <a [routerLink]="todosLink">Todos</a>
+    </div>
+    <div class="account" fxLayout="row" fxLayoutAlign="start center">
+      <div class="user">
+        <span class="name">
+          <a href="http://{{currentUser.website}}" target="_blank">{{currentUser.name}}</a>
+        </span>
+        <span class="company">({{currentUser.company.name}})</span>
+      </div>
+      <div class="profile-menu">
+        <button mat-button [matMenuTriggerFor]="menu">
+          <mat-icon aria-hidden="true">account_circle</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+      </div>
+    </div>
+  </mat-toolbar>
+</div>

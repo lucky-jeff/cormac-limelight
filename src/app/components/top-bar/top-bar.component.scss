@@ -1,0 +1,29 @@
+.top-bar {
+  a {
+    text-decoration: none !important;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .brand {
+    font-size: 22px;
+  }
+
+  .main-menu {
+    margin-right: 60px;
+
+    a {
+      margin: 0 10px;
+    }
+  }
+
+  .account {
+    .user {
+      .name {
+        margin-right: 10px;
+      }
+    }
+  }
+}

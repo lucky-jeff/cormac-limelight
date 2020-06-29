@@ -1,0 +1,22 @@
+.login {
+  display: flex;
+  justify-content: center;
+  margin-top: 200px;
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .form-login {
+    width: 350px;
+  }
+
+  .form-fields,
+  .form-actions {
+    margin-bottom: 20px;
+  }
+
+  .btn-spinner {
+    margin-right: 10px;
+  }
+}
