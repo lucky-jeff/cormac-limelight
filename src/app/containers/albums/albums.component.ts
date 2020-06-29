@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { orderBy } from 'lodash';
 
 import { AlbumsService } from '../../services';
 import { Album } from '../../models';
@@ -25,7 +24,7 @@ export class AlbumsComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.albumsSub$ = this.albumsService.getAlbums().subscribe(
       (albums: Array<Album>) => {
-        this.originalAlbums = albums;
+        this.originalAlbums = [...albums];
         this.albums = albums;
         this.loading = false;
       },
@@ -44,20 +43,20 @@ export class AlbumsComponent implements OnInit, OnDestroy {
   toggleDescSortOrder(): void {
     if (!this.sortOrder || this.sortOrder === 'asc') {
       this.sortOrder = 'desc';
-      this.albums = orderBy(this.albums, ['title'], [this.sortOrder]);
+      this.albums = this.albums.sort((a, b) => (a.title > b.title ? -1 : 1));
     } else {
       this.sortOrder = null;
-      this.albums = this.originalAlbums;
+      this.albums = [...this.originalAlbums];
     }
   }
 
   toggleAscSortOrder(): void {
     if (!this.sortOrder || this.sortOrder === 'desc') {
       this.sortOrder = 'asc';
-      this.albums = orderBy(this.albums, ['title'], [this.sortOrder]);
+      this.albums = this.albums.sort((a, b) => (a.title < b.title ? -1 : 1));
     } else {
       this.sortOrder = null;
-      this.albums = this.originalAlbums;
+      this.albums = [...this.originalAlbums];
     }
   }
 
