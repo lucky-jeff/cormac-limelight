@@ -19,7 +19,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { WithLoadingPipe } from './helpers/with-loading.pipe';
+import { WithLoadingPipe } from './helpers';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { ModalPhotosDialogComponent } from './components/modal-photos/modal-photos.component';
 import { LoginComponent } from './containers/login/login.component';

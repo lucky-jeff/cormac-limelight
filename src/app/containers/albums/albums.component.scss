@@ -1,10 +1,19 @@
 .albums {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  margin: 50px 0;
 
   .albums-list {
     width: 600px;
+  }
+
+  .sort-controls {
+    .sort-label {
+      margin-right: 20px;
+    }
+    .mat-grey {
+      color: #ccc;
+    }
   }
 
   .album-row {

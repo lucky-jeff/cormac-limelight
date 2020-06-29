@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { orderBy } from 'lodash';
 
 import { AlbumsService } from '../../services';
 import { Album } from '../../models';
@@ -12,13 +12,53 @@ import { ModalPhotosDialogComponent } from '../../components/modal-photos/modal-
   templateUrl: './albums.component.html',
   styleUrls: ['./albums.component.scss']
 })
-export class AlbumsComponent implements OnInit {
-  albums$: Observable<Array<Album>>;
+export class AlbumsComponent implements OnInit, OnDestroy {
+  albumsSub$: Subscription;
+  originalAlbums: Array<Album>;
+  albums: Array<Album>;
+  sortOrder = null;
+  loading = false;
 
   constructor(private albumsService: AlbumsService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.albums$ = this.albumsService.getAlbums().pipe(first());
+    this.loading = true;
+    this.albumsSub$ = this.albumsService.getAlbums().subscribe(
+      (albums: Array<Album>) => {
+        this.originalAlbums = albums;
+        this.albums = albums;
+        this.loading = false;
+      },
+      (error: any) => {
+        this.originalAlbums = [];
+        this.albums = [];
+        this.loading = false;
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.albumsSub$.unsubscribe();
+  }
+
+  toggleDescSortOrder(): void {
+    if (!this.sortOrder || this.sortOrder === 'asc') {
+      this.sortOrder = 'desc';
+      this.albums = orderBy(this.albums, ['title'], [this.sortOrder]);
+    } else {
+      this.sortOrder = null;
+      this.albums = this.originalAlbums;
+    }
+  }
+
+  toggleAscSortOrder(): void {
+    if (!this.sortOrder || this.sortOrder === 'desc') {
+      this.sortOrder = 'asc';
+      this.albums = orderBy(this.albums, ['title'], [this.sortOrder]);
+    } else {
+      this.sortOrder = null;
+      this.albums = this.originalAlbums;
+    }
   }
 
   public openPhotosModal(albumId: number): void {
